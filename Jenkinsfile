@@ -37,7 +37,7 @@ pipeline {
             steps{
                 script {
                     sh 'docker tag emax_ecr_repo:latest 740955001227.dkr.ecr.ap-south-1.amazonaws.com/emax_ecr_repo:latest'
-                    sh 'docker login -u AWS -p $(aws ecr get-login-password --region ap-south-1) 740955001227.dkr.ecr.ap-south-1.amazonaws.com'
+                    sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.ap-south-1.amazonaws.com'
                     sh 'docker push 740955001227.dkr.ecr.ap-south-1.amazonaws.com/emax_ecr_repo:latest'
                 }
             }
