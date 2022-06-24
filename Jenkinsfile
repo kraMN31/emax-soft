@@ -36,7 +36,7 @@ pipeline {
         stage('Pushing to ECR') {
             steps{
                 script {
-                    sh 'docker tag emax-geoloc-ecr:latest 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:latest
+                    sh 'docker tag emax-geoloc-ecr:latest 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:latest'
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.us-east-1.amazonaws.com'
                     sh 'docker push 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:latest'
                 }
