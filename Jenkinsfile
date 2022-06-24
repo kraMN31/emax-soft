@@ -4,8 +4,8 @@ pipeline {
         maven 'M2_HOME'
     }
     environment {
-        registry = '740955001227.dkr.ecr.us-east-1.amazonaws.com/emax_ecr_repo'
-        registryCredential = 'jenkins-ecr'
+        registry = '740955001227.dkr.ecr.ap-south-1.amazonaws.com/emax_ecr_repo'
+        registryCredential = 'emax_ecr_repo'
         dockerimage = ''
     }
     stages {
@@ -36,8 +36,9 @@ pipeline {
         stage('Pushing to ECR') {
             steps{
                 script {
-                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker push 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax_ecr_repo:latest'
+                    sh 'docker tag emax_ecr_repo:latest 740955001227.dkr.ecr.ap-south-1.amazonaws.com/emax_ecr_repo:latest'
+                    sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.ap-south-1.amazonaws.com'
+                    sh 'docker push 740955001227.dkr.ecr.ap-south-1.amazonaws.com/emax_ecr_repo:latest'
                 }
             }
         }
