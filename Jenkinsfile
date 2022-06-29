@@ -4,7 +4,7 @@ pipeline {
         maven 'M2_HOME'
     }
     environment {
-        registry = '740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr'
+        registry = '740955001227.dkr.ecr.us-east-2.amazonaws.com/geolocation_ecr_rep'
         registryCredential = 'jenkins-ecr'
         dockerimage = ''
     }
@@ -36,8 +36,8 @@ pipeline {
         stage('Pushing to ECR') {
             steps{
                 script {
-                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr'
-                    sh 'docker push 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:$BUILD_NUMBER'
+                    sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.us-east-2.amazonaws.com/geolocation_ecr_rep'
+                    sh 'docker push 740955001227.dkr.ecr.us-east-2.amazonaws.com/geolocation_ecr_rep:$BUILD_NUMBER'
                 }
             }
         }
