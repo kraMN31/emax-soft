@@ -28,7 +28,7 @@ pipeline {
         stage('Building image') {
             steps{
                 script {
-                    dockerImage = docker.build registry 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
@@ -36,9 +36,8 @@ pipeline {
         stage('Pushing to ECR') {
             steps{
                 script {
-                    sh 'docker tag emax_ecr_repo:latest 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:latest'
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 740955001227.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker push 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:latest'
+                    sh 'docker push 740955001227.dkr.ecr.us-east-1.amazonaws.com/emax-geoloc-ecr:$BUILD_NUMBER'
                 }
             }
         }
